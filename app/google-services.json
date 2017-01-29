@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "658449649361",
+    "firebase_url": "https://instacuisine-24be9.firebaseio.com",
+    "project_id": "instacuisine-24be9",
+    "storage_bucket": "instacuisine-24be9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658449649361:android:1d3d1bc1f571849a",
+        "android_client_info": {
+          "package_name": "com.fauxwit.instacuisine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658449649361-0rdbi9gsdcqu4nr9ce6kmsd671jdferu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fauxwit.instacuisine",
+            "certificate_hash": "B3B12BA0B87F3FD560EC94C1F31F096A3F3FF22A"
+          }
+        },
+        {
+          "client_id": "658449649361-p3sai8f10gdckf7vhsb1skoig93am6va.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXXPTPvvsAhIXG4Us5khsBTQJ99sI66Zs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658449649361-p3sai8f10gdckf7vhsb1skoig93am6va.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
