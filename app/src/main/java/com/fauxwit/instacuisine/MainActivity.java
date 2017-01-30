@@ -1,6 +1,9 @@
 package com.fauxwit.instacuisine;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        rcv_orders= (RecyclerView) findViewById(R.id.rv_orders);
+        MainActivity.this.registerReceiver(this.refreshListReceiver,new IntentFilter("refreshListReceiver"));
 
+        rcv_orders= (RecyclerView) findViewById(R.id.rv_orders);
         db=new Database(MainActivity.this);
         arl_orders=db.getAllOrrders();
 
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this,OrderDetailsActivity.class);
                 intent.putExtra("ORDER_ID",arl_orders.get(position).getOrderID());
                 startActivity(intent);
+
+                //refreshRecyclerView();
             }
 
             @Override
@@ -55,8 +60,37 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
+        //refreshRecyclerView();
+
     }
 
+
+    public void refreshRecyclerView(){
+        try {
+            db = new Database(MainActivity.this);
+            arl_orders.clear();
+            arl_orders.addAll(db.getAllOrrders());
+            //adapter.notifyDataSetChanged();
+            rcv_orders.setAdapter(adapter);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MainActivity.this.unregisterReceiver(refreshListReceiver);
+    }
+
+    BroadcastReceiver refreshListReceiver =new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            refreshRecyclerView();
+        }
+    };
 
 
 }

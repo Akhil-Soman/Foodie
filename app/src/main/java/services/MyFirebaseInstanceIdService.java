@@ -20,7 +20,8 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         SharedPreferenceStore.getInstance(getApplicationContext()).setFCM_TOKEN(refreshedToken);
 
         WebServices.sendDevToken(refreshedToken);
-       // WebServices.sendFCM(refreshedToken);
+        
+        //WebServices.sendFCM(refreshedToken);
 
     }
 }

@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.fauxwit.instacuisine.MainActivity;
+
 import java.util.ArrayList;
 
 import models.OrderModel;
@@ -34,15 +36,18 @@ public class Database extends SQLiteOpenHelper {
     public static final String CL_COMBO="COMBO";
     public static final String CL_ITEM_QTY="ITEM_QTY";
     public static final String CL_COMBO_QTY="COMBO_QTY";
+    public static final String CL_ACCEPTED="ACEEPTED";
+
     private static final String TB_ORDER_CL=CL_ORDER_ID+","+CL_CREATED_DATE+","+CL_USERNAME+","+CL_USER_F_NAME
             +","+CL_USER_L_NAME+","+CL_USER_IMAGEURL+","+CL_ORDERID_IN_ORDER+","+CL_SPECIAL_REQ+","+CL_ITEM_NAME
             +","+CL_DESCRIPTION+","+CL_IMAGE+","+ CL_ITEM_ID +","+CL_COMBO+","+CL_ITEM_QTY+","+CL_COMBO_QTY;
 
     SQLiteDatabase trialdb;
-
+Context context;
 
     public Database(Context context){
         super(context,DB_NAME,null,DB_VERSION);
+        this.context=context;
         trialdb=this.getWritableDatabase();
     }
 

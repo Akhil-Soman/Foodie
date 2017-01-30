@@ -161,22 +161,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             mNotificationManager.showSmallNotification("Instacuisine", "Order ID : "+msg, intent);
             JSONArray jsonArray=null;
             ArrayList<OrderModel> arl=null;
-            try {
+            /*try {
                 arl=ParserClass.parser_orderDetails(WebServices.getOrderDetails(msg));
             }catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace();*/
                 jsonArray = new JSONArray(s);
                 arl=ParserClass.parser_orderDetails(jsonArray);
-            }
+            //}
 
             if (arl!=null) {
-                Database db = new Database(getApplicationContext());
-                for (OrderModel ob : arl) {
-                    db.insertOrder(ob.getOrderID(), ob.getCREATED_DATE(), ob.getUsername(), ob.getUserFNme(), ob.getUserLName(),
-                            ob.getUserImageUrl(), ob.getORDERID_IN_ORDER(), ob.getSPECIAL_REQ(), ob.getITEM_NAME(), ob.getDescription(),
-                            ob.getIMAGE(), ob.getIdInItem(), ob.getCOMBO(), ob.getITEM_QTY(), ob.getCOMBO_QTY());
+                if (arl.get(0) != null) {
+                    if (!arl.get(0).getITEM_NAME().equals("")) {
+
+                        Database db = new Database(getApplicationContext());
+                        for (OrderModel ob : arl) {
+                            db.insertOrder(ob.getOrderID(), ob.getCREATED_DATE(), ob.getUsername(), ob.getUserFNme(), ob.getUserLName(),
+                                    ob.getUserImageUrl(), ob.getORDERID_IN_ORDER(), ob.getSPECIAL_REQ(), ob.getITEM_NAME(), ob.getDescription(),
+                                    ob.getIMAGE(), ob.getIdInItem(), ob.getCOMBO(), ob.getITEM_QTY(), ob.getCOMBO_QTY());
+                        }
+                    }
                 }
             }
+
+            Intent i = new Intent();
+            i.setAction("refreshListReceiver");
+            /*i.putExtra("sender_id", b.getString("sender_id"));
+            i.putExtra("message", b.getString("message"));
+            i.putExtra("time", getCurrentTime());
+            i.putExtra("date", getCurrentDate());*/
+            this.sendBroadcast(i);
 
         }catch (Exception e){
             e.printStackTrace();
